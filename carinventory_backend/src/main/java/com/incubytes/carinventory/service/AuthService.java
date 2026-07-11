@@ -33,7 +33,7 @@ public class AuthService {
     }
     public void login(LoginRequest request) {
 
-        userRepository.findByEmail(request.email());
-
+        userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 }
