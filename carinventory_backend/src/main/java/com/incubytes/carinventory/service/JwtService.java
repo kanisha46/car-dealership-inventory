@@ -1,9 +1,12 @@
 package com.incubytes.carinventory.service;
 
 import com.incubytes.carinventory.entity.User;
+import org.springframework.stereotype.Service;
 
-public interface JwtService {
+@Service
+public class JwtService {
 
-    String generateToken(User user);
-
+    public String generateToken(User user) {
+        return "dummy-jwt-token";
+    }
 }

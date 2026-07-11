@@ -74,9 +74,15 @@ class AuthServiceTest {
         when(userRepository.findByEmail(request.email()))
                 .thenReturn(Optional.of(user));
 
-        authService.login(request);
+        when(jwtService.generateToken(user))
+                .thenReturn("dummy-jwt-token");
+
+        LoginResponse response = authService.login(request);
 
         verify(userRepository).findByEmail(request.email());
+
+        assertThat(response.message()).isEqualTo("Login successful");
+        assertThat(response.token()).isEqualTo("dummy-jwt-token");
     }
 
     @Test
@@ -124,6 +130,7 @@ class AuthServiceTest {
         assertThat(exception.getMessage())
                 .isEqualTo("Invalid password");
     }
+
     @Test
     void shouldReturnLoginResponseWhenCredentialsAreValid() {
 
@@ -142,9 +149,16 @@ class AuthServiceTest {
         when(userRepository.findByEmail(request.email()))
                 .thenReturn(Optional.of(user));
 
+        when(jwtService.generateToken(user))
+                .thenReturn("dummy-jwt-token");
+
         LoginResponse response = authService.login(request);
 
         assertThat(response.message())
                 .isEqualTo("Login successful");
+
+        assertThat(response.token())
+                .isEqualTo("dummy-jwt-token");
+
     }
 }

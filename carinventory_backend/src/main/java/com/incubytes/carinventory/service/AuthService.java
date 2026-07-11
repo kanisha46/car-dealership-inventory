@@ -12,9 +12,11 @@ import com.incubytes.carinventory.dto.LoginRequest;
 public class AuthService {
 
     private final UserRepository userRepository;
-
-    public AuthService(UserRepository userRepository) {
+    private final JwtService jwtService;
+    
+    public AuthService(UserRepository userRepository, JwtService jwtService) {
         this.userRepository = userRepository;
+        this.jwtService = jwtService;
     }
 
     public void register(RegisterRequest request) {
@@ -42,6 +44,11 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid password");
         }
 
-        return new LoginResponse("Login successful");
+        String token = jwtService.generateToken(user);
+
+        return new LoginResponse(
+                "Login successful",
+                token
+        );
     }
 }

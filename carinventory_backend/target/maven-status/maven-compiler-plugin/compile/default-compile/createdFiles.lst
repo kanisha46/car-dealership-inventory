@@ -1,5 +1,7 @@
+com\incubytes\carinventory\service\AuthService.class
 com\incubytes\carinventory\dto\LoginResponse.class
 com\incubytes\carinventory\entity\User.class
 com\incubytes\carinventory\repository\UserRepository.class
+com\incubytes\carinventory\service\JwtService.class
 com\incubytes\carinventory\dto\RegisterRequest.class
 com\incubytes\carinventory\entity\Role.class
