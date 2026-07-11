@@ -1,4 +1,3 @@
-com\incubytes\carinventory\service\AuthService.class
 com\incubytes\carinventory\dto\LoginResponse.class
 com\incubytes\carinventory\entity\User.class
 com\incubytes\carinventory\repository\UserRepository.class

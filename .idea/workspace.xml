@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df35182e-4a4f-4312-aadf-a967b6514a0b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/dto/LoginResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/dto/LoginResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/service/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/dto/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/dto/LoginResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/carinventory_backend/src/test/java/com/incubytes/carinventory/service/AuthServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/src/test/java/com/incubytes/carinventory/service/AuthServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/dto/LoginResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/dto/LoginResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/service/AuthService.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/test-classes/com/incubytes/carinventory/service/AuthServiceTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
