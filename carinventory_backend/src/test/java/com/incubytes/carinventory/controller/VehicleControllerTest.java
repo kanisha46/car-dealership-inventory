@@ -1,6 +1,8 @@
 package com.incubytes.carinventory.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.incubytes.carinventory.entity.Vehicle;
+import com.incubytes.carinventory.repository.VehicleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,6 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.security.test.context.support.WithMockUser;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
@@ -21,6 +25,9 @@ class VehicleControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
     @Test
     @WithMockUser(username = "testuser")
@@ -43,5 +50,38 @@ class VehicleControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.category").value("SUV"))
                 .andExpect(jsonPath("$.quantity").value(10));
+    }
+
+    @Test
+    @WithMockUser(username = "admin")
+    void shouldUpdateVehicle() throws Exception {
+
+        Vehicle vehicle = new Vehicle();
+        vehicle.setBrand("Toyota");
+        vehicle.setModel("Fortuner");
+        vehicle.setCategory("SUV");
+        vehicle.setYear(2023);
+        vehicle.setPrice(4200000.0);
+        vehicle.setQuantity(10);
+
+        vehicle = vehicleRepository.save(vehicle);
+
+        String updatedVehicle = """
+    {
+        "brand":"BMW",
+        "model":"X5",
+        "category":"SUV",
+        "year":2024,
+        "price":5500000,
+        "quantity":5
+    }
+    """;
+
+        mockMvc.perform(put("/vehicles/" + vehicle.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updatedVehicle))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.brand").value("BMW"))
+                .andExpect(jsonPath("$.model").value("X5"));
     }
 }
