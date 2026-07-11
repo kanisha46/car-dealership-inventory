@@ -33,7 +33,11 @@ public class AuthService {
     }
     public void login(LoginRequest request) {
 
-        userRepository.findByEmail(request.email())
+        User user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (!user.getPassword().equals(request.password())) {
+            throw new IllegalArgumentException("Invalid password");
+        }
     }
 }

@@ -94,4 +94,30 @@ class AuthServiceTest {
         assertThat(exception.getMessage())
                 .isEqualTo("User not found");
     }
+    @Test
+    void shouldThrowExceptionWhenPasswordIsIncorrect() {
+
+        LoginRequest request = new LoginRequest(
+                "john@example.com",
+                "wrongPassword"
+        );
+
+        User user = new User(
+                "John Doe",
+                "john@example.com",
+                "password123",
+                Role.USER
+        );
+
+        when(userRepository.findByEmail(request.email()))
+                .thenReturn(Optional.of(user));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> authService.login(request)
+        );
+
+        assertThat(exception.getMessage())
+                .isEqualTo("Invalid password");
+    }
 }
