@@ -12,7 +12,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +24,9 @@ class AuthServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @Mock
     private JwtService jwtService;
@@ -43,6 +46,9 @@ class AuthServiceTest {
         when(userRepository.existsByEmail(request.email()))
                 .thenReturn(false);
 
+        when(passwordEncoder.encode(request.password()))
+                .thenReturn("encodedPassword");
+
         authService.register(request);
 
         ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
@@ -51,6 +57,8 @@ class AuthServiceTest {
 
         User savedUser = captor.getValue();
 
+        assertThat(savedUser.getPassword())
+                .isEqualTo("encodedPassword");
         assertThat(savedUser.getName()).isEqualTo("John Doe");
         assertThat(savedUser.getEmail()).isEqualTo("john@example.com");
         assertThat(savedUser.getRole()).isEqualTo(Role.USER);
@@ -67,13 +75,18 @@ class AuthServiceTest {
         User user = new User(
                 "John Doe",
                 "john@example.com",
-                "password123",
+                "encodedPassword",
                 Role.USER
         );
+
 
         when(userRepository.findByEmail(request.email()))
                 .thenReturn(Optional.of(user));
 
+        when(passwordEncoder.matches(
+                request.password(),
+                "encodedPassword"))
+                .thenReturn(true);
         when(jwtService.generateToken(user))
                 .thenReturn("dummy-jwt-token");
 
@@ -115,9 +128,13 @@ class AuthServiceTest {
         User user = new User(
                 "John Doe",
                 "john@example.com",
-                "password123",
+                "encodedPassword",
                 Role.USER
         );
+        when(passwordEncoder.matches(
+                request.password(),
+                "encodedPassword"))
+                .thenReturn(false);
 
         when(userRepository.findByEmail(request.email()))
                 .thenReturn(Optional.of(user));
@@ -142,7 +159,7 @@ class AuthServiceTest {
         User user = new User(
                 "John Doe",
                 "john@example.com",
-                "password123",
+                "encodedPassword",
                 Role.USER
         );
 

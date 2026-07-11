@@ -7,16 +7,19 @@ import com.incubytes.carinventory.entity.User;
 import com.incubytes.carinventory.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import com.incubytes.carinventory.dto.LoginRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class AuthService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
-    
-    public AuthService(UserRepository userRepository, JwtService jwtService) {
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthService(UserRepository userRepository, JwtService jwtService,PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
+        this.passwordEncoder=passwordEncoder;
     }
 
     public void register(RegisterRequest request) {
@@ -28,7 +31,7 @@ public class AuthService {
         User user = new User(
                 request.name(),
                 request.email(),
-                request.password(),
+                passwordEncoder.encode(request.password()),
                 Role.USER
         );
 
@@ -40,7 +43,7 @@ public class AuthService {
         User user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        if (!user.getPassword().equals(request.password())) {
+        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
             throw new IllegalArgumentException("Invalid password");
         }
 

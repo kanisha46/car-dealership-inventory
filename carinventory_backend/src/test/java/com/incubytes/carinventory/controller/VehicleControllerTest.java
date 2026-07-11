@@ -46,7 +46,7 @@ class VehicleControllerTest {
     }
     """;
 
-        mockMvc.perform(post("/vehicles")
+        mockMvc.perform(post("/api/vehicles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vehicle))
                 .andExpect(status().isCreated())
@@ -79,7 +79,7 @@ class VehicleControllerTest {
     }
     """;
 
-        mockMvc.perform(put("/vehicles/" + vehicle.getId())
+        mockMvc.perform(put("/api/vehicles/" + vehicle.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updatedVehicle))
                 .andExpect(status().isOk())
@@ -100,9 +100,44 @@ class VehicleControllerTest {
 
         vehicle = vehicleRepository.save(vehicle);
 
-        mockMvc.perform(delete("/vehicles/" + vehicle.getId()))
+        mockMvc.perform(delete("/api/vehicles/" + vehicle.getId()))
                 .andExpect(status().isNoContent());
 
         assertFalse(vehicleRepository.findById(vehicle.getId()).isPresent());
+    }
+    @Test
+    @WithMockUser(username = "user")
+    void shouldPurchaseVehicle() throws Exception {
+
+        Vehicle vehicle = new Vehicle();
+        vehicle.setBrand("Toyota");
+        vehicle.setModel("Fortuner");
+        vehicle.setCategory("SUV");
+        vehicle.setYear(2023);
+        vehicle.setPrice(4200000.0);
+        vehicle.setQuantity(10);
+
+        vehicle = vehicleRepository.save(vehicle);
+
+        mockMvc.perform(post("/api/vehicles/" + vehicle.getId() + "/purchase"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.quantity").value(9));
+    }
+    @Test
+    @WithMockUser(username = "user")
+    void shouldNotPurchaseOutOfStockVehicle() throws Exception {
+
+        Vehicle vehicle = new Vehicle();
+        vehicle.setBrand("BMW");
+        vehicle.setModel("X5");
+        vehicle.setCategory("SUV");
+        vehicle.setYear(2024);
+        vehicle.setPrice(6000000.0);
+        vehicle.setQuantity(0);
+
+        vehicle = vehicleRepository.save(vehicle);
+
+        mockMvc.perform(post("/api/vehicles/" + vehicle.getId() + "/purchase"))
+                .andExpect(status().isBadRequest());
     }
 }

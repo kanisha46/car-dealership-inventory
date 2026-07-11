@@ -1,6 +1,7 @@
 package com.incubytes.carinventory.service;
 
 import com.incubytes.carinventory.entity.Vehicle;
+import com.incubytes.carinventory.exception.VehicleNotFoundException;
 import com.incubytes.carinventory.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
 
@@ -49,9 +50,22 @@ public class VehicleService {
     public void deleteVehicle(Long id) {
 
         if (!repository.existsById(id)) {
-            throw new RuntimeException("Vehicle not found");
+            throw new VehicleNotFoundException("Vehicle not found");
         }
 
         repository.deleteById(id);
+    }
+    public Vehicle purchaseVehicle(Long id) {
+
+        Vehicle vehicle = repository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException("Vehicle not found"));
+
+        if (vehicle.getQuantity() <= 0) {
+            throw new IllegalStateException("Vehicle out of stock");
+        }
+
+        vehicle.setQuantity(vehicle.getQuantity() - 1);
+
+        return repository.save(vehicle);
     }
 }

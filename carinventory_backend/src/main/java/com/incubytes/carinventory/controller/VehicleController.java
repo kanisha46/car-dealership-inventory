@@ -5,11 +5,15 @@ import com.incubytes.carinventory.service.VehicleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.incubytes.carinventory.dto.VehicleRequest;
+import com.incubytes.carinventory.dto.VehicleResponse;
+import com.incubytes.carinventory.mapper.VehicleMapper;
 import java.util.List;
+import java.util.stream.Collectors;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/vehicles")
+@RequestMapping("/api/vehicles")
 public class VehicleController {
 
     private final VehicleService service;
@@ -19,35 +23,64 @@ public class VehicleController {
     }
 
     @PostMapping
-    public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) {
+    public ResponseEntity<VehicleResponse> createVehicle(
+            @Valid @RequestBody VehicleRequest request) {
+
+        Vehicle vehicle = VehicleMapper.toEntity(request);
+
         Vehicle savedVehicle = service.createVehicle(vehicle);
+
+        VehicleResponse response = VehicleMapper.toResponse(savedVehicle);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(savedVehicle);
+                .body(response);
     }
 
     @GetMapping
-    public ResponseEntity<List<Vehicle>> getAllVehicles() {
-        return ResponseEntity.ok(service.getAllVehicles());
+    public ResponseEntity<List<VehicleResponse>> getAllVehicles() {
+
+        List<VehicleResponse> response = service.getAllVehicles()
+                .stream()
+                .map(VehicleMapper::toResponse)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Vehicle>> searchVehicles(
+    public ResponseEntity<List<VehicleResponse>> searchVehicles(
             @RequestParam String keyword) {
 
-        return ResponseEntity.ok(
-                service.searchVehicles(keyword)
-        );
+        List<VehicleResponse> response = service.searchVehicles(keyword)
+                .stream()
+                .map(VehicleMapper::toResponse)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Vehicle> updateVehicle(
+    public ResponseEntity<VehicleResponse> updateVehicle(
             @PathVariable Long id,
-            @RequestBody Vehicle vehicle) {
+            @RequestBody VehicleRequest request) {
+
+        Vehicle vehicle = VehicleMapper.toEntity(request);
 
         Vehicle updatedVehicle = service.updateVehicle(id, vehicle);
 
-        return ResponseEntity.ok(updatedVehicle);
+        VehicleResponse response = VehicleMapper.toResponse(updatedVehicle);
+
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping("/{id}/purchase")
+    public ResponseEntity<VehicleResponse> purchaseVehicle(
+            @PathVariable Long id) {
+
+        Vehicle vehicle = service.purchaseVehicle(id);
+
+        return ResponseEntity.ok(
+                VehicleMapper.toResponse(vehicle)
+        );
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable Long id) {
