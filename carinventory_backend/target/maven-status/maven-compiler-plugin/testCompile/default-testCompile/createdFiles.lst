@@ -1,2 +1,3 @@
+com\incubytes\carinventory\controller\AuthControllerTest.class
 com\incubytes\carinventory\CarinventoryApplicationTests.class
 com\incubytes\carinventory\service\AuthServiceTest.class
