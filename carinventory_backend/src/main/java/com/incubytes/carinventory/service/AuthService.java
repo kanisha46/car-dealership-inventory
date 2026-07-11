@@ -1,5 +1,6 @@
 package com.incubytes.carinventory.service;
 
+import com.incubytes.carinventory.dto.LoginResponse;
 import com.incubytes.carinventory.dto.RegisterRequest;
 import com.incubytes.carinventory.entity.Role;
 import com.incubytes.carinventory.entity.User;
@@ -31,7 +32,8 @@ public class AuthService {
 
         userRepository.save(user);
     }
-    public void login(LoginRequest request) {
+
+    public LoginResponse login(LoginRequest request) {
 
         User user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -39,5 +41,7 @@ public class AuthService {
         if (!user.getPassword().equals(request.password())) {
             throw new IllegalArgumentException("Invalid password");
         }
+
+        return new LoginResponse("Login successful");
     }
 }
