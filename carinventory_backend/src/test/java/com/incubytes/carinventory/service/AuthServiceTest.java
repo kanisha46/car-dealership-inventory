@@ -166,6 +166,9 @@ class AuthServiceTest {
         when(userRepository.findByEmail(request.email()))
                 .thenReturn(Optional.of(user));
 
+        when(passwordEncoder.matches(request.password(), user.getPassword()))
+                .thenReturn(true);
+
         when(jwtService.generateToken(user))
                 .thenReturn("dummy-jwt-token");
 

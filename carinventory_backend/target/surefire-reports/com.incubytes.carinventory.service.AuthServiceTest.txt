@@ -1,12 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.incubytes.carinventory.service.AuthServiceTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.061 s <<< FAILURE! -- in com.incubytes.carinventory.service.AuthServiceTest
-com.incubytes.carinventory.service.AuthServiceTest.shouldReturnLoginResponseWhenCredentialsAreValid -- Time elapsed: 0.019 s <<< ERROR!
-java.lang.IllegalArgumentException: Invalid password
-	at com.incubytes.carinventory.service.AuthService.login(AuthService.java:47)
-	at com.incubytes.carinventory.service.AuthServiceTest.shouldReturnLoginResponseWhenCredentialsAreValid(AuthServiceTest.java:172)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.632 s -- in com.incubytes.carinventory.service.AuthServiceTest

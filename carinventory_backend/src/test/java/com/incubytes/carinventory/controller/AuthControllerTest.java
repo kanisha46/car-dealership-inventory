@@ -13,6 +13,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import com.incubytes.carinventory.config.SecurityConfig;
+import com.incubytes.carinventory.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Import;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -31,6 +32,9 @@ class AuthControllerTest {
 
     @MockitoBean
     private AuthService authService;
+
+    @MockitoBean
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
     private ObjectMapper objectMapper;
