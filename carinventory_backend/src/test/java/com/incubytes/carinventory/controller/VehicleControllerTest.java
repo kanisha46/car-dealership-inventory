@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
+import org.springframework.security.test.context.support.WithMockUser;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,16 +22,17 @@ class VehicleControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
+    @WithMockUser(username = "testuser")
     void shouldCreateVehicle() throws Exception {
 
         String vehicle = """
-                {
-                    "brand":"Toyota",
-                    "model":"Fortuner",
-                    "year":2023,
-                    "price":4200000
-                }
-                """;
+    {
+        "brand":"Toyota",
+        "model":"Fortuner",
+        "year":2023,
+        "price":4200000
+    }
+    """;
 
         mockMvc.perform(post("/vehicles")
                         .contentType(MediaType.APPLICATION_JSON)
