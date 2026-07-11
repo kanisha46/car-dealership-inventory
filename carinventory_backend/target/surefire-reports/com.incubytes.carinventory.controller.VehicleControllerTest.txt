@@ -1,16 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.incubytes.carinventory.controller.VehicleControllerTest
 -------------------------------------------------------------------------------
-Tests run: 17, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4.243 s <<< FAILURE! -- in com.incubytes.carinventory.controller.VehicleControllerTest
-com.incubytes.carinventory.controller.VehicleControllerTest.shouldFilterVehiclesByPriceRange -- Time elapsed: 0.094 s <<< FAILURE!
-java.lang.AssertionError: JSON path "$.length()" expected:<1> but was:<3>
-	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
-	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
-	at org.springframework.test.util.JsonPathExpectationsHelper.assertValue(JsonPathExpectationsHelper.java:172)
-	at org.springframework.test.web.servlet.result.JsonPathResultMatchers.lambda$value$2(JsonPathResultMatchers.java:112)
-	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
-	at com.incubytes.carinventory.controller.VehicleControllerTest.shouldFilterVehiclesByPriceRange(VehicleControllerTest.java:248)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.266 s -- in com.incubytes.carinventory.controller.VehicleControllerTest
