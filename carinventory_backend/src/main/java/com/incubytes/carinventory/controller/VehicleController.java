@@ -40,4 +40,13 @@ public class VehicleController {
                 service.searchVehicles(keyword)
         );
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Vehicle> updateVehicle(
+            @PathVariable Long id,
+            @RequestBody Vehicle vehicle) {
+
+        Vehicle updatedVehicle = service.updateVehicle(id, vehicle);
+
+        return ResponseEntity.ok(updatedVehicle);
+    }
 }

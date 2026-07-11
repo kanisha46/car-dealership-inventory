@@ -31,4 +31,19 @@ public class VehicleService {
                         keyword
                 );
     }
+
+    public Vehicle updateVehicle(Long id, Vehicle updatedVehicle) {
+
+        Vehicle existingVehicle = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
+
+        existingVehicle.setBrand(updatedVehicle.getBrand());
+        existingVehicle.setModel(updatedVehicle.getModel());
+        existingVehicle.setCategory(updatedVehicle.getCategory());
+        existingVehicle.setYear(updatedVehicle.getYear());
+        existingVehicle.setPrice(updatedVehicle.getPrice());
+        existingVehicle.setQuantity(updatedVehicle.getQuantity());
+
+        return repository.save(existingVehicle);
+    }
 }
