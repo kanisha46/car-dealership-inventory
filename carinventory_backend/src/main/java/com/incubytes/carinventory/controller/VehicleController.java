@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/vehicles")
 public class VehicleController {
@@ -18,11 +20,15 @@ public class VehicleController {
 
     @PostMapping
     public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) {
-
         Vehicle savedVehicle = service.createVehicle(vehicle);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(savedVehicle);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Vehicle>> getAllVehicles() {
+        return ResponseEntity.ok(service.getAllVehicles());
     }
 }
