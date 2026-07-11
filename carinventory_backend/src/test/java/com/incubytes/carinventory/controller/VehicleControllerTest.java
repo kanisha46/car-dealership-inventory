@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.security.test.context.support.WithMockUser;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -23,20 +24,24 @@ class VehicleControllerTest {
 
     @Test
     @WithMockUser(username = "testuser")
-    void shouldCreateVehicle() throws Exception {
+    void shouldCreateVehicleWithCategoryAndQuantity() throws Exception {
 
         String vehicle = """
     {
         "brand":"Toyota",
         "model":"Fortuner",
+        "category":"SUV",
         "year":2023,
-        "price":4200000
+        "price":4200000,
+        "quantity":10
     }
     """;
 
         mockMvc.perform(post("/vehicles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vehicle))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.category").value("SUV"))
+                .andExpect(jsonPath("$.quantity").value(10));
     }
 }

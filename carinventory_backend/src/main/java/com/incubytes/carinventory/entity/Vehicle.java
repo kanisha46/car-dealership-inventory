@@ -14,9 +14,13 @@ public class Vehicle {
 
     private String model;
 
+    private String category;
+
     private Integer year;
 
     private Double price;
+
+    private Integer quantity;
 
     public Vehicle() {
     }
@@ -45,6 +49,14 @@ public class Vehicle {
         this.model = model;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public Integer getYear() {
         return year;
     }
@@ -59,5 +71,13 @@ public class Vehicle {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
