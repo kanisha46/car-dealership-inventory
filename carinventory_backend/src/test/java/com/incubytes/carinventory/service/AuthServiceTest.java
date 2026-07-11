@@ -1,5 +1,6 @@
 package com.incubytes.carinventory.service;
 
+import com.incubytes.carinventory.dto.LoginRequest;
 import com.incubytes.carinventory.dto.RegisterRequest;
 import com.incubytes.carinventory.entity.Role;
 import com.incubytes.carinventory.entity.User;
@@ -11,7 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,5 +50,48 @@ class AuthServiceTest {
         assertThat(savedUser.getName()).isEqualTo("John Doe");
         assertThat(savedUser.getEmail()).isEqualTo("john@example.com");
         assertThat(savedUser.getRole()).isEqualTo(Role.USER);
+    }
+
+    @Test
+    void shouldLoginUser() {
+
+        LoginRequest request = new LoginRequest(
+                "john@example.com",
+                "password123"
+        );
+
+        User user = new User(
+                "John Doe",
+                "john@example.com",
+                "password123",
+                Role.USER
+        );
+
+        when(userRepository.findByEmail(request.email()))
+                .thenReturn(Optional.of(user));
+
+        authService.login(request);
+
+        verify(userRepository).findByEmail(request.email());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserDoesNotExist() {
+
+        LoginRequest request = new LoginRequest(
+                "john@example.com",
+                "password123"
+        );
+
+        when(userRepository.findByEmail(request.email()))
+                .thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> authService.login(request)
+        );
+
+        assertThat(exception.getMessage())
+                .isEqualTo("User not found");
     }
 }

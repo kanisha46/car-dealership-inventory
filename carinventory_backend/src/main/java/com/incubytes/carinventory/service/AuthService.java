@@ -5,6 +5,7 @@ import com.incubytes.carinventory.entity.Role;
 import com.incubytes.carinventory.entity.User;
 import com.incubytes.carinventory.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import com.incubytes.carinventory.dto.LoginRequest;
 
 @Service
 public class AuthService {
@@ -29,5 +30,10 @@ public class AuthService {
         );
 
         userRepository.save(user);
+    }
+    public void login(LoginRequest request) {
+
+        userRepository.findByEmail(request.email());
+
     }
 }
