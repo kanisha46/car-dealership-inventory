@@ -1,6 +1,7 @@
 package com.incubytes.carinventory.service;
 
 import com.incubytes.carinventory.dto.LoginRequest;
+import com.incubytes.carinventory.dto.LoginResponse;
 import com.incubytes.carinventory.dto.RegisterRequest;
 import com.incubytes.carinventory.entity.Role;
 import com.incubytes.carinventory.entity.User;
@@ -119,5 +120,28 @@ class AuthServiceTest {
 
         assertThat(exception.getMessage())
                 .isEqualTo("Invalid password");
+    }
+    @Test
+    void shouldReturnLoginResponseWhenCredentialsAreValid() {
+
+        LoginRequest request = new LoginRequest(
+                "john@example.com",
+                "password123"
+        );
+
+        User user = new User(
+                "John Doe",
+                "john@example.com",
+                "password123",
+                Role.USER
+        );
+
+        when(userRepository.findByEmail(request.email()))
+                .thenReturn(Optional.of(user));
+
+        LoginResponse response = authService.login(request);
+
+        assertThat(response.message())
+                .isEqualTo("Login successful");
     }
 }
