@@ -82,6 +82,17 @@ public class VehicleController {
                 VehicleMapper.toResponse(vehicle)
         );
     }
+    @PostMapping("/{id}/restock")
+    public ResponseEntity<VehicleResponse> restockVehicle(
+            @PathVariable Long id,
+            @RequestParam int quantity) {
+
+        Vehicle vehicle = service.restockVehicle(id, quantity);
+
+        return ResponseEntity.ok(
+                VehicleMapper.toResponse(vehicle)
+        );
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable Long id) {
 

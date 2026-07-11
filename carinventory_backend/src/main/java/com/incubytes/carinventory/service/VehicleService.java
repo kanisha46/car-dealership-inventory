@@ -68,4 +68,17 @@ public class VehicleService {
 
         return repository.save(vehicle);
     }
+    public Vehicle restockVehicle(Long id, int quantity) {
+
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Restock quantity must be positive");
+        }
+
+        Vehicle vehicle = repository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException("Vehicle not found"));
+
+        vehicle.setQuantity(vehicle.getQuantity() + quantity);
+
+        return repository.save(vehicle);
+    }
 }

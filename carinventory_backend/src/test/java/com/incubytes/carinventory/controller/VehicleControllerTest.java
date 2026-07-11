@@ -32,7 +32,7 @@ class VehicleControllerTest {
     private VehicleRepository vehicleRepository;
 
     @Test
-    @WithMockUser(username = "testuser")
+    @WithMockUser(username = "testuser", roles = "ADMIN")
     void shouldCreateVehicleWithCategoryAndQuantity() throws Exception {
 
         String vehicle = """
@@ -55,7 +55,7 @@ class VehicleControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin")
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void shouldUpdateVehicle() throws Exception {
 
         Vehicle vehicle = new Vehicle();
@@ -87,7 +87,7 @@ class VehicleControllerTest {
                 .andExpect(jsonPath("$.model").value("X5"));
     }
     @Test
-    @WithMockUser(username = "admin")
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void shouldDeleteVehicle() throws Exception {
 
         Vehicle vehicle = new Vehicle();
@@ -139,5 +139,65 @@ class VehicleControllerTest {
 
         mockMvc.perform(post("/api/vehicles/" + vehicle.getId() + "/purchase"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    void shouldFailPurchaseIfVehicleNotFound() throws Exception {
+        mockMvc.perform(post("/api/vehicles/99999/purchase"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void shouldRestockVehicleSuccessfully() throws Exception {
+        Vehicle vehicle = new Vehicle();
+        vehicle.setBrand("Toyota");
+        vehicle.setModel("Fortuner");
+        vehicle.setCategory("SUV");
+        vehicle.setYear(2023);
+        vehicle.setPrice(4200000.0);
+        vehicle.setQuantity(10);
+
+        vehicle = vehicleRepository.save(vehicle);
+
+        mockMvc.perform(post("/api/vehicles/" + vehicle.getId() + "/restock")
+                        .param("quantity", "5"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.quantity").value(15));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void shouldFailRestockIfVehicleNotFound() throws Exception {
+        mockMvc.perform(post("/api/vehicles/99999/restock")
+                        .param("quantity", "5"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void shouldFailRestockIfQuantityIsInvalid() throws Exception {
+        Vehicle vehicle = new Vehicle();
+        vehicle.setBrand("Toyota");
+        vehicle.setModel("Fortuner");
+        vehicle.setCategory("SUV");
+        vehicle.setYear(2023);
+        vehicle.setPrice(4200000.0);
+        vehicle.setQuantity(10);
+
+        vehicle = vehicleRepository.save(vehicle);
+
+        mockMvc.perform(post("/api/vehicles/" + vehicle.getId() + "/restock")
+                        .param("quantity", "-5"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "user", roles = "USER")
+    void shouldFailRestockIfUserIsUnauthorized() throws Exception {
+        mockMvc.perform(post("/api/vehicles/1/restock")
+                        .param("quantity", "5"))
+                .andExpect(status().isForbidden());
     }
 }
