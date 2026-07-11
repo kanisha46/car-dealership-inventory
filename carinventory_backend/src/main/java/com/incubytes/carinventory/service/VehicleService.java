@@ -46,4 +46,12 @@ public class VehicleService {
 
         return repository.save(existingVehicle);
     }
+    public void deleteVehicle(Long id) {
+
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Vehicle not found");
+        }
+
+        repository.deleteById(id);
+    }
 }

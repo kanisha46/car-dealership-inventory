@@ -15,6 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -83,5 +85,24 @@ class VehicleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.brand").value("BMW"))
                 .andExpect(jsonPath("$.model").value("X5"));
+    }
+    @Test
+    @WithMockUser(username = "admin")
+    void shouldDeleteVehicle() throws Exception {
+
+        Vehicle vehicle = new Vehicle();
+        vehicle.setBrand("Toyota");
+        vehicle.setModel("Fortuner");
+        vehicle.setCategory("SUV");
+        vehicle.setYear(2023);
+        vehicle.setPrice(4200000.0);
+        vehicle.setQuantity(10);
+
+        vehicle = vehicleRepository.save(vehicle);
+
+        mockMvc.perform(delete("/vehicles/" + vehicle.getId()))
+                .andExpect(status().isNoContent());
+
+        assertFalse(vehicleRepository.findById(vehicle.getId()).isPresent());
     }
 }
