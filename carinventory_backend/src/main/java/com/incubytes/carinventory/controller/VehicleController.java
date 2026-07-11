@@ -31,4 +31,13 @@ public class VehicleController {
     public ResponseEntity<List<Vehicle>> getAllVehicles() {
         return ResponseEntity.ok(service.getAllVehicles());
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Vehicle>> searchVehicles(
+            @RequestParam String keyword) {
+
+        return ResponseEntity.ok(
+                service.searchVehicles(keyword)
+        );
+    }
 }

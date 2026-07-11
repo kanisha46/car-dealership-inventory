@@ -22,4 +22,13 @@ public class VehicleService {
     public List<Vehicle> getAllVehicles() {
         return repository.findAll();
     }
+
+    public List<Vehicle> searchVehicles(String keyword) {
+        return repository
+                .findByBrandContainingIgnoreCaseOrModelContainingIgnoreCaseOrCategoryContainingIgnoreCase(
+                        keyword,
+                        keyword,
+                        keyword
+                );
+    }
 }
