@@ -27,9 +27,7 @@ public class VehicleController {
             @Valid @RequestBody VehicleRequest request) {
 
         Vehicle vehicle = VehicleMapper.toEntity(request);
-
         Vehicle savedVehicle = service.createVehicle(vehicle);
-
         VehicleResponse response = VehicleMapper.toResponse(savedVehicle);
 
         return ResponseEntity
@@ -48,30 +46,46 @@ public class VehicleController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Unified search & filter endpoint.
+     * All params are optional and can be combined freely:
+     *   - brand:    partial, case-insensitive match on brand name
+     *   - model:    partial, case-insensitive match on model name
+     *   - year:     exact year match
+     *   - minPrice: lower bound of price range (inclusive)
+     *   - maxPrice: upper bound of price range (inclusive)
+     *
+     * When no params are provided, all vehicles are returned.
+     */
     @GetMapping("/search")
     public ResponseEntity<List<VehicleResponse>> searchVehicles(
-            @RequestParam String keyword) {
+            @RequestParam(required = false) String brand,
+            @RequestParam(required = false) String model,
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice) {
 
-        List<VehicleResponse> response = service.searchVehicles(keyword)
-                .stream()
+        List<Vehicle> vehicles = service.searchWithFilters(brand, model, year, minPrice, maxPrice);
+
+        List<VehicleResponse> response = vehicles.stream()
                 .map(VehicleMapper::toResponse)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(response);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<VehicleResponse> updateVehicle(
             @PathVariable Long id,
             @RequestBody VehicleRequest request) {
 
         Vehicle vehicle = VehicleMapper.toEntity(request);
-
         Vehicle updatedVehicle = service.updateVehicle(id, vehicle);
-
         VehicleResponse response = VehicleMapper.toResponse(updatedVehicle);
 
         return ResponseEntity.ok(response);
     }
+
     @PostMapping("/{id}/purchase")
     public ResponseEntity<VehicleResponse> purchaseVehicle(
             @PathVariable Long id) {
@@ -82,6 +96,7 @@ public class VehicleController {
                 VehicleMapper.toResponse(vehicle)
         );
     }
+
     @PostMapping("/{id}/restock")
     public ResponseEntity<VehicleResponse> restockVehicle(
             @PathVariable Long id,
@@ -93,6 +108,7 @@ public class VehicleController {
                 VehicleMapper.toResponse(vehicle)
         );
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable Long id) {
 

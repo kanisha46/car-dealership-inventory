@@ -81,4 +81,28 @@ public class VehicleService {
 
         return repository.save(vehicle);
     }
-}
+    public List<Vehicle> searchByBrand(String brand) {
+        return repository.findByBrandIgnoreCase(brand);
+    }
+
+    public List<Vehicle> searchByModel(String model) {
+        return repository.findByModelIgnoreCase(model);
+    }
+
+    public List<Vehicle> filterByPrice(Double minPrice, Double maxPrice) {
+        return repository.findByPriceBetween(minPrice, maxPrice);
+    }
+
+    public List<Vehicle> filterByYear(Integer year) {
+        return repository.findByYear(year);
+    }
+
+    /**
+     * Combined search that filters by any combination of brand, model, year and price range.
+     * Any parameter that is null is ignored (acts as "no filter").
+     */
+    public List<Vehicle> searchWithFilters(String brand, String model, Integer year,
+                                           Double minPrice, Double maxPrice) {
+        return repository.searchWithFilters(brand, model, year, minPrice, maxPrice);
+    }
+}
