@@ -33,6 +33,8 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        .requestMatchers(HttpMethod.GET, "/api/vehicles/**").permitAll()
+
                         .requestMatchers(HttpMethod.POST, "/api/vehicles")
                         .hasRole("ADMIN")
 
@@ -49,7 +51,7 @@ public class SecurityConfig {
                         .hasAnyRole("USER","ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/api/vehicles/**")
-                        .authenticated()
+                        .permitAll()
 
                         .anyRequest().authenticated()
                 )

@@ -45,16 +45,41 @@ public class DatabaseSeeder implements CommandLineRunner {
             userRepository.save(admin);
             System.out.println("Seeded default users: user@dealership.com and admin@dealership.com");
         }
-
         // Seed Vehicles
-        if (vehicleRepository.count() == 0) {
-            vehicleRepository.save(createVehicle("Tesla", "Model S", "Electric Sedan", 2023, 89990.00, 5));
-            vehicleRepository.save(createVehicle("Tesla", "Model Y", "Electric SUV", 2024, 49990.00, 12));
-            vehicleRepository.save(createVehicle("Ford", "Mustang Mach-E", "Electric SUV", 2023, 45990.00, 0)); // Out of stock
-            vehicleRepository.save(createVehicle("Porsche", "911 Carrera", "Sports Car", 2024, 114400.00, 3));
-            vehicleRepository.save(createVehicle("Toyota", "RAV4 Prime", "PHEV Crossover", 2023, 43000.00, 8));
-            System.out.println("Seeded default vehicles");
-        }
+        // Seed Vehicles
+        vehicleRepository.deleteAll();
+
+        vehicleRepository.save(createVehicle("Toyota", "Fortuner", "SUV", 2024, 52000.00, 8));
+        vehicleRepository.save(createVehicle("Toyota", "Camry", "Sedan", 2024, 39000.00, 6));
+
+        vehicleRepository.save(createVehicle("Honda", "City", "Sedan", 2023, 22000.00, 10));
+        vehicleRepository.save(createVehicle("Honda", "Civic", "Sedan", 2024, 31000.00, 5));
+
+        vehicleRepository.save(createVehicle("Hyundai", "Creta", "SUV", 2024, 24000.00, 12));
+        vehicleRepository.save(createVehicle("Hyundai", "Verna", "Sedan", 2024, 21000.00, 9));
+
+        vehicleRepository.save(createVehicle("Mahindra", "Scorpio N", "SUV", 2024, 31000.00, 7));
+        vehicleRepository.save(createVehicle("Mahindra", "XUV700", "SUV", 2024, 36000.00, 6));
+
+        vehicleRepository.save(createVehicle("Tata", "Nexon", "SUV", 2024, 19000.00, 15));
+        vehicleRepository.save(createVehicle("Tata", "Harrier", "SUV", 2024, 32000.00, 8));
+
+        vehicleRepository.save(createVehicle("Kia", "Seltos", "SUV", 2024, 25000.00, 10));
+        vehicleRepository.save(createVehicle("MG", "Hector", "SUV", 2024, 29000.00, 5));
+
+        vehicleRepository.save(createVehicle("BMW", "3 Series", "Luxury Sedan", 2024, 61000.00, 4));
+        vehicleRepository.save(createVehicle("BMW", "X5", "Luxury SUV", 2024, 85000.00, 3));
+
+        vehicleRepository.save(createVehicle("Mercedes-Benz", "C-Class", "Luxury Sedan", 2024, 67000.00, 4));
+        vehicleRepository.save(createVehicle("Mercedes-Benz", "GLC", "Luxury SUV", 2024, 72000.00, 3));
+
+        vehicleRepository.save(createVehicle("Audi", "A4", "Luxury Sedan", 2024, 58000.00, 5));
+        vehicleRepository.save(createVehicle("Audi", "Q7", "Luxury SUV", 2024, 89000.00, 2));
+
+        vehicleRepository.save(createVehicle("Tesla", "Model 3", "Electric Sedan", 2024, 47000.00, 9));
+        vehicleRepository.save(createVehicle("Tesla", "Model Y", "Electric SUV", 2024, 53000.00, 7));
+
+        System.out.println("Seeded 20 demo vehicles");
     }
 
     private Vehicle createVehicle(String brand, String model, String category, int year, double price, int quantity) {
