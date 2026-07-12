@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+const CAR_IMAGES = [
+  'https://images.unsplash.com/photo-1503376760359-740751efb709?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=800&q=80'
+];
+
 export default function VehicalCard({ vehicle, onPurchase, onDelete, onRestock }) {
   const { isAdmin } = useAuth();
   const [restockQty, setRestockQty] = useState('');
@@ -44,20 +52,27 @@ export default function VehicalCard({ vehicle, onPurchase, onDelete, onRestock }
   };
 
   const isOutOfStock = vehicle.quantity <= 0;
+  // Use vehicle ID to deterministically pick an image
+  const imageUrl = CAR_IMAGES[(vehicle.id || 0) % CAR_IMAGES.length];
 
   return (
-    <div className="vehicle-card glass">
+    <div className="vehicle-card glass model-card">
+      <div className="vehicle-card-image-container">
+        <img src={imageUrl} alt={`${vehicle.brand} ${vehicle.model}`} className="vehicle-card-image" />
+        <div className="vehicle-card-image-overlay"></div>
+        <div className="vehicle-category-badge">{vehicle.category}</div>
+      </div>
+      
       <div className="vehicle-card-body">
         <div className="vehicle-card-header">
           <div>
             <span className="vehicle-brand">{vehicle.brand}</span>
             <h3 className="vehicle-title">{vehicle.model}</h3>
           </div>
-          <span className="badge badge-primary">{vehicle.category}</span>
+          <span className="badge badge-secondary">{vehicle.year}</span>
         </div>
 
         <div className="vehicle-meta">
-          <span className="badge badge-secondary">{vehicle.year}</span>
           {isOutOfStock ? (
             <span className="badge badge-danger">Out of Stock</span>
           ) : vehicle.quantity <= 3 ? (
@@ -83,12 +98,12 @@ export default function VehicalCard({ vehicle, onPurchase, onDelete, onRestock }
             ) : isOutOfStock ? (
               'Unavailable'
             ) : (
-              'Purchase'
+              'Purchase Vehicle'
             )}
           </button>
 
           {isAdmin && (
-            <>
+            <div className="admin-controls">
               <form onSubmit={handleRestock} className="restock-section">
                 <input
                   type="number"
@@ -102,31 +117,31 @@ export default function VehicalCard({ vehicle, onPurchase, onDelete, onRestock }
                 <button
                   type="submit"
                   disabled={restocking}
-                  className="btn btn-secondary"
-                  style={{ flexGrow: 1, padding: '0.5rem 1rem', fontSize: '0.85rem' }}
+                  className="btn btn-secondary btn-sm"
+                  style={{ flexGrow: 1 }}
                 >
-                  {restocking ? 'Restocking...' : 'Restock'}
+                  {restocking ? '...' : 'Restock'}
                 </button>
               </form>
 
               <div className="admin-actions">
                 <Link
                   to={`/vehicles/edit/${vehicle.id}`}
-                  className="btn btn-secondary"
-                  style={{ flex: 1, padding: '0.5rem 1rem', fontSize: '0.85rem' }}
+                  className="btn btn-secondary btn-sm"
+                  style={{ flex: 1, textAlign: 'center' }}
                 >
                   Edit
                 </Link>
                 <button
                   onClick={handleDelete}
                   disabled={deleting}
-                  className="btn btn-danger"
-                  style={{ flex: 1, padding: '0.5rem 1rem', fontSize: '0.85rem' }}
+                  className="btn btn-danger btn-sm"
+                  style={{ flex: 1 }}
                 >
-                  {deleting ? 'Deleting...' : 'Delete'}
+                  {deleting ? '...' : 'Delete'}
                 </button>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

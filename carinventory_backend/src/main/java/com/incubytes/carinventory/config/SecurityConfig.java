@@ -30,13 +30,27 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/vehicles/*/restock").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/vehicles").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/vehicles/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/vehicles/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/vehicles/*/purchase").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/vehicles/**").hasAnyRole("USER", "ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/api/vehicles")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/vehicles/**")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/vehicles/**")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/api/vehicles/*/restock")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/api/vehicles/*/purchase")
+                        .hasAnyRole("USER","ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/vehicles/**")
+                        .authenticated()
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter,
