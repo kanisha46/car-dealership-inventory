@@ -1,12 +1,12 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/:path*",
-      "destination": "https://car-dealership-inventory.onrender.com/api/:path*"
+      "src": "/api/(.*)",
+      "dest": "https://car-dealership-inventory.onrender.com/api/$1"
     },
     {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
