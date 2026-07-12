@@ -1,111 +1,585 @@
-# Car Dealership Inventory System
+# 🚗 Car Dealership Inventory System
 
-A robust, modern full-stack single-page application (SPA) to manage a vehicle showroom inventory. Built using Spring Boot (Java 21, Security, JPA, SQLite, JWT) on the backend and React (Vite, React Router, React Hook Form, Axios) on the frontend.
+A modern, full-stack **Car Dealership Inventory Management System** developed as part of the **Incubyte TDD Kata**. The application enables customers to browse, search, and purchase vehicles while providing administrators with a secure dashboard to manage inventory, restock vehicles, and monitor purchase history.
 
-## Key Features
-- **User Authentication**: Register & login with token-based JWT security.
-- **Showroom Dashboard**: Live stats summary (total vehicles count, total portfolio value, unique categories count) and a listing grid.
-- **Unified Filtering**: Search and filter the catalog by brand, model, year, and price range.
-- **Purchase Action**: Instantly purchase vehicles (decrements inventory count; disables at 0 stock).
-- **Admin Dashboard**:
-  - Add new vehicles with real-time field validation.
-  - Modify details of existing vehicles.
-  - Restock vehicles (increments inventory count).
-  - Delete vehicles from the showroom fleet.
-- **Visual Design**: High-fidelity dark mode with glassmorphic cards, gradient accents, loading skeletons, responsive grid layouts, and fluid micro-animations.
+The project follows modern software engineering practices, including **RESTful API development**, **JWT authentication**, **role-based authorization**, **responsive frontend development**, and **Test-Driven Development (TDD)**.
 
 ---
 
-## Technical Architecture
+# ✨ Features
+
+## 🔐 Authentication
+
+* User Registration
+* User Login
+* JWT Token Authentication
+* Secure Password Encryption (BCrypt)
+* Role-Based Authorization (Admin & Customer)
+
+---
+
+## 🚗 Vehicle Inventory
+
+* Browse all available vehicles
+* Responsive vehicle listing
+* View detailed vehicle information
+* Search by:
+
+  * Make
+  * Model
+  * Category
+  * Minimum Price
+  * Maximum Price
+* Live dashboard statistics
+* Automatic stock updates
+
+---
+
+## 🛒 Purchase System
+
+* Purchase available vehicles
+* Customer purchase form
+* Stores customer information:
+
+  * Name
+  * Email
+  * Phone Number
+  * Address
+* Automatically decreases inventory
+* Purchase button automatically disables when stock reaches zero
+
+---
+
+## 👨‍💼 Admin Dashboard
+
+Administrators can:
+
+* Add new vehicles
+* Update vehicle details
+* Delete vehicles
+* Restock vehicle inventory
+* View customer purchase history
+* Track:
+
+  * Customer Name
+  * Purchased Vehicle
+  * Purchase Date
+  * Purchase Time
+
+---
+
+## 🎨 User Interface
+
+* Modern Glassmorphism Design
+* Fully Responsive Layout
+* Gradient Backgrounds
+* Smooth Animations
+* Loading Skeletons
+* Interactive Cards
+* Clean Navigation
+* Mobile Friendly
+
+---
+
+# 🛠️ Tech Stack
+
+## Backend
+
+* Java 21
+* Spring Boot
+* Spring Security
+* Spring Data JPA
+* JWT Authentication
+* SQLite
+* Maven
+
+---
+
+## Frontend
+
+* React
+* Vite
+* React Router
+* React Hook Form
+* Axios
+* CSS3
+
+---
+
+## Database
+
+* SQLite
+
+---
+
+# 🏗️ Project Architecture
 
 ```mermaid
 graph TD
-    Client[React SPA Client - Port 3000] -->|HTTP Requests| ViteProxy[Vite Dev Server Proxy]
-    ViteProxy -->|Forward /api| SpringBoot[Spring Boot REST API - Port 8081]
-    SpringBoot -->|Authentication / Security| Security[Spring Security & JWT Filter]
-    SpringBoot -->|Business Logic| Service[Vehicle & Auth Services]
-    SpringBoot -->|Data Persistence| JPA[Spring Data JPA]
-    JPA -->|SQLite Dialect| DB[(SQLite Database - car_inventory.db)]
+    Client[React SPA] -->|HTTP Requests| Vite[Vite Development Server]
+    Vite -->|/api| Spring[Spring Boot REST API]
+
+    Spring --> Security[Spring Security + JWT]
+    Spring --> Services[Service Layer]
+    Services --> Repository[JPA Repository]
+    Repository --> SQLite[(SQLite Database)]
 ```
 
 ---
 
-## Local Setup and Installation
+# 📂 Project Structure
 
-### Prerequisites
-- **Java JDK 21** or higher
-- **Node.js** v18+ and **npm**
+```
+CarDealershipInventory
 
-### Step 1: Run the Backend API
-1. Navigate to the backend directory:
-   ```bash
-   cd carinventory_backend
-   ```
-2. Build and run the Spring Boot application using the Maven wrapper:
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-*Note: The backend will start on **port 8081** and automatically initialize and seed the SQLite database file `car_inventory.db` in the backend directory.*
-
-### Step 2: Run the Frontend Client
-1. Navigate to the frontend directory:
-   ```bash
-   cd carinventory_frontend
-   ```
-2. Install npm dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-*Note: The frontend server starts on **port 3000** and proxies `/api` calls to the backend on `8081`.*
-
----
-
-## Test Accounts
-
-The database seeder automatically populates the system with two test users:
-
-| Role | Username | Password |
-|------|----------|----------|
-| **Standard User** | `user@dealership.com` | `password123` |
-| **Admin User** | `admin@dealership.com` | `password123` |
+│
+├── backend
+│   ├── config
+│   ├── controller
+│   ├── dto
+│   ├── entity
+│   ├── repository
+│   ├── security
+│   ├── service
+│   └── tests
+│
+├── frontend
+│   ├── src
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── services
+│   │   ├── hooks
+│   │   └── styles
+│   └── tests
+│
+├── screenshots
+│
+├── README.md
+└── TEST_REPORT.md
+```
 
 ---
 
-## Running Test Suites
+# 🗄️ Database Schema
 
-### Backend Unit Tests
-To run the Spring Boot JUnit test suite (includes 36 tests covering Auth/Vehicle controllers, services, and search queries):
+The application stores data in SQLite using the following tables:
+
+### Users
+
+* id
+* name
+* email
+* password
+* role
+
+### Vehicles
+
+* id
+* make
+* model
+* category
+* price
+* quantity
+
+### Purchases
+
+* id
+* customerName
+* customerEmail
+* phoneNumber
+* address
+* purchaseDate
+* purchaseTime
+* vehicleId
+
+---
+
+# 🔒 Security Features
+
+* JWT Authentication
+* BCrypt Password Encryption
+* Stateless Authentication
+* Spring Security
+* Protected REST APIs
+* Role-Based Authorization
+* Admin-only Operations
+
+---
+
+# 🌐 REST API
+
+## Authentication
+
+### Register
+
+```
+POST /api/auth/register
+```
+
+### Login
+
+```
+POST /api/auth/login
+```
+
+---
+
+## Vehicles
+
+### Get All Vehicles
+
+```
+GET /api/vehicles
+```
+
+### Search Vehicles
+
+```
+GET /api/vehicles/search
+```
+
+### Add Vehicle (Admin)
+
+```
+POST /api/vehicles
+```
+
+### Update Vehicle (Admin)
+
+```
+PUT /api/vehicles/{id}
+```
+
+### Delete Vehicle (Admin)
+
+```
+DELETE /api/vehicles/{id}
+```
+
+---
+
+## Inventory
+
+### Purchase Vehicle
+
+```
+POST /api/vehicles/{id}/purchase
+```
+
+### Restock Vehicle
+
+```
+POST /api/vehicles/{id}/restock
+```
+
+---
+
+## Purchase History
+
+```
+GET /api/purchases
+```
+
+---
+
+# 🚀 Local Setup
+
+## Prerequisites
+
+* Java JDK 21+
+* Node.js 18+
+* npm
+* Git
+
+---
+
+## Backend Setup
+
+Navigate to the backend directory:
+
+```bash
+cd carinventory_backend
+```
+
+Run the Spring Boot application:
+
+```bash
+./mvnw spring-boot:run
+```
+
+The backend runs on:
+
+```
+http://localhost:8081
+```
+
+The SQLite database (`car_inventory.db`) is automatically created and seeded during startup.
+
+---
+
+## Frontend Setup
+
+Navigate to the frontend directory:
+
+```bash
+cd carinventory_frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The frontend runs on:
+
+```
+http://localhost:3000
+```
+
+All `/api` requests are automatically proxied to the backend.
+
+---
+
+# 👤 Test Accounts
+
+The application automatically seeds the database with the following users:
+
+| Role     | Email                  | Password      |
+| -------- | ---------------------- | ------------- |
+| Customer | `user@dealership.com`  | `password123` |
+| Admin    | `admin@dealership.com` | `password123` |
+
+---
+
+# 🔄 Application Workflow
+
+## Customer Workflow
+
+Register
+
+↓
+
+Login
+
+↓
+
+Browse Vehicles
+
+↓
+
+Search & Filter
+
+↓
+
+View Vehicle Details
+
+↓
+
+Fill Purchase Form
+
+↓
+
+Purchase Vehicle
+
+↓
+
+Inventory Updated
+
+---
+
+## Administrator Workflow
+
+Login
+
+↓
+
+Dashboard
+
+↓
+
+Add Vehicle
+
+↓
+
+Update Vehicle
+
+↓
+
+Delete Vehicle
+
+↓
+
+Restock Inventory
+
+↓
+
+View Purchase History
+
+---
+
+# 🧪 Running Tests
+
+## Backend Tests
+
+Run all backend unit tests:
+
 ```bash
 cd carinventory_backend
 ./mvnw test
 ```
 
-### Frontend Unit Tests
-To run the Vitest suite (includes 16 tests covering Login, Register, Dashboard, and VehicalCard components):
+The backend test suite includes tests for:
+
+* Authentication
+* JWT Security
+* Vehicle CRUD
+* Search Functionality
+* Purchase Logic
+* Restock Logic
+* Controllers
+* Services
+* Repository Layer
+
+---
+
+## Frontend Tests
+
+Run all frontend tests:
+
 ```bash
 cd carinventory_frontend
 npm run test
 ```
 
+The frontend test suite covers:
+
+* Login Page
+* Registration Page
+* Dashboard
+* Vehicle Cards
+* Search Components
+* Route Protection
+* Form Validation
+
 ---
 
-## My AI Usage
+# 📊 Test Coverage
 
-### 1. Tools Used
-- **Claude / Gemini (Antigravity Assistant)**: Co-authored codebase structure, designed CSS styling system, wrote unit tests, and resolved locale-based test formatting errors.
+The project includes comprehensive automated tests covering:
 
-### 2. How They Were Used
-- **Boilerplate & Architecture**: Used to generate standard DTO classes (`UserProfileResponse`) and database seeder (`DatabaseSeeder.java`).
-- **CSS Design System**: Engineered a custom glassmorphism design sheet from scratch, leveraging CSS variables to make theme tweaking straightforward.
-- **Unit Testing**: Generated mocks for `useAuth` contexts and router components to verify validation errors, loading skeletons, and role-based toggle permissions.
-- **Debugging**: Analyzed the test output where system locales caused comma-versus-period formatting mismatches in currency rendering, and fixed it by declaring a strict `'en-US'` formatting standard.
+* User Authentication
+* Authorization
+* Vehicle CRUD Operations
+* Purchase Functionality
+* Inventory Management
+* Search & Filtering
+* API Endpoints
+* Frontend Components
+* Form Validation
+* Protected Routes
 
-### 3. Reflections on Workflow Impact
-Using AI allowed for a rapid loop of Red-Green-Refactor development:
-- The backend DTO expansion compile-tested cleanly on the first run.
-- Building high-quality mock data was expedited, allowing focus on handling edge conditions (e.g. disabling purchase buttons on exact zero boundaries, validation triggers on empty submissions).
-- The transition between Spring Security context configuration and client-side route protection wrappers was bridged seamlessly.
+---
+
+# 📸 Screenshots
+
+The `/screenshots` directory contains images of:
+
+* Login Page
+* Registration Page
+* Dashboard
+* Vehicle Listing
+* Search & Filter
+* Vehicle Details
+* Purchase Form
+* Admin Dashboard
+* Add Vehicle
+* Edit Vehicle
+* Purchase History
+
+---
+
+# 🤖 My AI Usage
+
+## AI Tools Used
+
+* ChatGPT
+* Claude / Antigravity Assistant
+
+---
+
+## How AI Was Used
+
+AI was used responsibly throughout the project to improve development efficiency while ensuring all final implementations were reviewed, understood, and tested before integration.
+
+Examples include:
+
+* Generating Spring Boot boilerplate
+* Designing REST API structure
+* Creating DTO classes
+* Debugging Spring Security and JWT configuration
+* Building responsive React components
+* Improving UI/UX design
+* Writing unit test templates
+* Debugging frontend rendering issues
+* Optimizing application architecture
+* Assisting with project documentation
+
+Every AI-generated suggestion was manually reviewed, modified where necessary, tested thoroughly, and integrated into the final application.
+
+---
+
+## Reflection
+
+Using AI significantly accelerated repetitive development tasks such as boilerplate generation, debugging, and documentation. It allowed greater focus on designing clean architecture, implementing business logic, improving user experience, and maintaining high code quality. All architectural decisions, business logic, testing, and final integration were completed and validated manually.
+
+---
+
+# 🚀 Future Enhancements
+
+* Online Payment Integration
+* Vehicle Image Upload
+* Email Notifications
+* Vehicle Reservation System
+* Sales Analytics Dashboard
+* Export Purchase Reports
+* Cloud Deployment (AWS, Render, Railway)
+* Docker Support
+* CI/CD Pipeline
+* Advanced Filtering & Sorting
+
+---
+
+# 👨‍💻 Development Practices
+
+This project follows modern software engineering principles:
+
+* Test-Driven Development (TDD)
+* SOLID Principles
+* Clean Code Practices
+* RESTful API Design
+* Component-Based Frontend Architecture
+* Role-Based Access Control
+* Git Version Control
+* Responsive Design
+* Modern UI/UX Principles
+
+---
+
+# 📄 License
+
+This project was developed as part of the **Incubyte TDD Kata** for educational and assessment purposes.
+
+---
+
+# 👤 Author
+
+**Kanisha Jasoliya**
+
+Incubyte TDD Kata Submission
