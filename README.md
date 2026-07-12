@@ -491,19 +491,64 @@ The project includes comprehensive automated tests covering:
 
 The `/screenshots` directory contains images of:
 
-* Login Page
-* Registration Page
-* Dashboard
-* Vehicle Listing
-* Search & Filter
-* Vehicle Details
-* Purchase Form
-* Admin Dashboard
-* Add Vehicle
-* Edit Vehicle
-* Purchase History
+# 📸 Screenshots
+
+## Login Page
+
+![Login](screenshots/login.png)
 
 ---
+
+## Registration Page
+
+![Register](screenshots/register.png)
+
+---
+
+## Dashboard
+
+![Dashboard](screenshots/Dashboard.png)
+
+---
+
+## Vehicles
+
+![Search](screenshots/vehicles.png)
+
+---
+
+## Vehicle Details
+
+![Vehicle Details1](screenshots/vehicle_detail1.png)
+
+![Vehicle Details2](screenshots/vehicle_detail2.png)
+---
+
+## Purchase Form
+
+![Purchase Form](screenshots/vehicle_purchase.png)
+
+---
+
+## Admin Dashboard
+
+![Admin Dashboard](screenshots/admin_dashboard.png)
+
+![Admin Feature](screenshots/admin_feature.png)
+---
+
+## Add Vehicle
+
+![Add Vehicle](screenshots/add_vehicle.png)
+![Add Vehicle](screenshots/add_vehicle1.png)
+---
+
+## Edit Vehicle
+
+![Edit Vehicle](screenshots/edit-vehicle.png)
+
+---
+
 
 # 🤖 My AI Usage
 
