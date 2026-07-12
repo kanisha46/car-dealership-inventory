@@ -1,26 +1,64 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { vehicleService } from '../services/vehicleService';
 import SearchBar from '../components/SearchBar';
 import VehicalCard from '../components/VehicalCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ConfirmDialog from '../components/ConfirmDialog';
 import CarDetailModal from '../components/CarDetailModal';
+import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-import { SearchX, PackageOpen, Car, TrendingUp, Tag, Layers } from 'lucide-react';
+import { SearchX, PackageOpen, Car, TrendingUp, Tag, Layers, PlusCircle } from 'lucide-react';
 
-// ─── Car image map (brand → working image URL) ────────────────────────────
-// Using picsum.photos seeds + direct reliable URLs as fallbacks
+// ─── Car image map (brand → real car photo URL) ───────────────────────────
 const CAR_IMAGE_MAP = {
-  'Porsche':       'https://cdn.pixabay.com/photo/2017/03/27/14/45/car-2179220_1280.jpg',
-  'BMW':           'https://cdn.pixabay.com/photo/2019/12/20/20/39/car-4709872_1280.jpg',
-  'Mercedes-Benz': 'https://cdn.pixabay.com/photo/2016/04/01/12/11/car-1300629_1280.png',
-  'Audi':          'https://cdn.pixabay.com/photo/2013/07/12/17/47/test-car-152502_1280.png',
-  'Ferrari':       'https://cdn.pixabay.com/photo/2016/10/23/18/26/ferrari-1762588_1280.jpg',
-  'Lamborghini':   'https://cdn.pixabay.com/photo/2017/08/31/05/36/urus-2699844_1280.jpg',
-  'Tesla':         'https://cdn.pixabay.com/photo/2021/01/15/17/01/tesla-5919764_1280.jpg',
-  'Range Rover':   'https://cdn.pixabay.com/photo/2015/01/19/13/51/car-604019_1280.jpg',
-  'Rolls-Royce':   'https://cdn.pixabay.com/photo/2017/01/03/02/07/auto-1948997_1280.jpg',
-  'Toyota':        'https://cdn.pixabay.com/photo/2018/02/21/03/15/supra-3169986_1280.jpg',
+  // Premium / Supercar brands
+  'Porsche':        'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=900&q=80',
+  'BMW':            'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=80',
+  'Mercedes-Benz':  'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=80',
+  'Audi':           'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=80',
+  'Ferrari':        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80',
+  'Lamborghini':    'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80',
+  'Tesla':          'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=900&q=80',
+  'Range Rover':    'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
+  'Rolls-Royce':    'https://images.unsplash.com/photo-1566024349786-f5cbf63d6571?w=900&q=80',
+  'Bentley':        'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=900&q=80',
+  'McLaren':        'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=900&q=80',
+  'Bugatti':        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80',
+  'Maserati':       'https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=900&q=80',
+  'Alfa Romeo':     'https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=900&q=80',
+
+  // Japanese brands
+  'Toyota':         'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=900&q=80',
+  'Honda':          'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=80',
+  'Nissan':         'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80',
+  'Mazda':          'https://images.unsplash.com/photo-1541443131876-96855bd3a827?w=900&q=80',
+  'Subaru':         'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=900&q=80',
+  'Mitsubishi':     'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=900&q=80',
+  'Lexus':          'https://images.unsplash.com/photo-1550355291-bbee04a92027?w=900&q=80',
+  'Infiniti':       'https://images.unsplash.com/photo-1582655008695-8cab1c7b98c8?w=900&q=80',
+  'Acura':          'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=900&q=80',
+
+  // Korean brands
+  'Hyundai':        'https://images.unsplash.com/photo-1612825173281-9a193378527e?w=900&q=80',
+  'Kia':            'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=900&q=80',
+  'Genesis':        'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=80',
+
+  // American brands
+  'Ford':           'https://images.unsplash.com/photo-1612825173281-9a193378527e?w=900&q=80',
+  'Chevrolet':      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=80',
+  'Dodge':          'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=900&q=80',
+  'Cadillac':       'https://images.unsplash.com/photo-1550355291-bbee04a92027?w=900&q=80',
+  'Lincoln':        'https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=900&q=80',
+  'Jeep':           'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
+
+  // European (non-German)
+  'Volkswagen':     'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=80',
+  'Volvo':          'https://images.unsplash.com/photo-1529408632839-a54952c491e5?w=900&q=80',
+  'Jaguar':         'https://images.unsplash.com/photo-1526726538690-5cbf956ae2fd?w=900&q=80',
+  'Land Rover':     'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
+  'Peugeot':        'https://images.unsplash.com/photo-1541443131876-96855bd3a827?w=900&q=80',
+  'Renault':        'https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=900&q=80',
 };
 
 // Gradient class map for CSS fallbacks
@@ -35,6 +73,25 @@ const BRAND_GRADIENT = {
   'Range Rover':   'car-img-rangerover',
   'Rolls-Royce':   'car-img-rollsroyce',
   'Toyota':        'car-img-toyota',
+  'Honda':         'car-img-bmw',
+  'Nissan':        'car-img-audi',
+  'Mazda':         'car-img-porsche',
+  'Subaru':        'car-img-rangerover',
+  'Lexus':         'car-img-mercedes',
+  'Hyundai':       'car-img-tesla',
+  'Kia':           'car-img-bmw',
+  'Ford':          'car-img-rangerover',
+  'Chevrolet':     'car-img-audi',
+  'Dodge':         'car-img-ferrari',
+  'Cadillac':      'car-img-mercedes',
+  'Volkswagen':    'car-img-audi',
+  'Volvo':         'car-img-bmw',
+  'Jaguar':        'car-img-porsche',
+  'Land Rover':    'car-img-rangerover',
+  'Bentley':       'car-img-rollsroyce',
+  'McLaren':       'car-img-ferrari',
+  'Bugatti':       'car-img-ferrari',
+  'Maserati':      'car-img-porsche',
 };
 
 // ─── 10 Static Showcase Cars ───────────────────────────────────────────────
@@ -134,11 +191,12 @@ const STATIC_CARS = [
 // Attach image URLs and gradient classes
 const ENRICHED_STATIC_CARS = STATIC_CARS.map(car => ({
   ...car,
-  imageUrl: CAR_IMAGE_MAP[car.brand] || `https://picsum.photos/seed/${car.id}/900/600`,
+  imageUrl: CAR_IMAGE_MAP[car.brand] || 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&q=80',
   gradientClass: BRAND_GRADIENT[car.brand] || 'car-img-porsche',
 }));
 
 export default function Dashboard() {
+  const { isAdmin } = useAuth();
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [useStaticFallback, setUseStaticFallback] = useState(false);
@@ -162,9 +220,9 @@ export default function Dashboard() {
       } else {
         data = await vehicleService.getAllVehicles();
       }
-      const enriched = data.map((v, i) => ({
+      const enriched = data.map((v) => ({
         ...v,
-        imageUrl: CAR_IMAGE_MAP[v.brand] || ENRICHED_STATIC_CARS[i % ENRICHED_STATIC_CARS.length]?.imageUrl,
+        imageUrl: CAR_IMAGE_MAP[v.brand] || 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&q=80',
         gradientClass: BRAND_GRADIENT[v.brand] || 'car-img-porsche',
       }));
       setVehicles(enriched);
@@ -310,8 +368,42 @@ export default function Dashboard() {
               <circle cx="155" cy="70" r="14" fill="#c8602a"/>
             </svg>
           </div>
+
+          {/* Admin CTA */}
+          {isAdmin && (
+            <div style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <Link
+                to="/vehicles/add"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '7px',
+                  background: 'linear-gradient(135deg, #c8602a, #a04820)',
+                  color: '#fff', fontWeight: 700, fontSize: '0.88rem',
+                  padding: '0.6rem 1.4rem', borderRadius: '10px',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 16px rgba(200,96,42,0.4)',
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(200,96,42,0.5)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(200,96,42,0.4)'; }}
+              >
+                <PlusCircle size={16} />
+                Add New Vehicle
+              </Link>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                background: 'rgba(200,96,42,0.1)', color: '#8a3a10',
+                border: '1px solid rgba(200,96,42,0.25)',
+                fontSize: '0.82rem', fontWeight: 600,
+                padding: '0.6rem 1.1rem', borderRadius: '10px',
+              }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e', display: 'inline-block' }} />
+                Admin Mode Active
+              </div>
+            </div>
+          )}
         </div>
       </div>
+
 
       {/* ── Stats ── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', marginBottom: '2.5rem' }}>

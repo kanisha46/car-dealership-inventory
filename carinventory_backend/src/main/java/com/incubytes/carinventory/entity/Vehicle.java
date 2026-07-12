@@ -22,7 +22,17 @@ public class Vehicle {
 
     private Integer quantity;
 
+    private String imageUrl;
+
     public Vehicle() {
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
