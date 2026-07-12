@@ -5,6 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df35182e-4a4f-4312-aadf-a967b6514a0b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/screenshots/Dashboard.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/add_vehicle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/add_vehicle1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/admin_dashboard.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/admin_feature.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/edit_vehicle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/login.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/register.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/vehicle_detail1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/vehicle_detail2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/vehicle_purchase.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshots/vehicles.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,21 +52,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Incubytes/carinventory&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/Incubytes/carinventory/screenshots",
+    "to.speed.mode.migration.done": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Incubytes\carinventory\screenshots" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="carinventory" />
