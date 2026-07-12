@@ -1,10 +1,12 @@
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\CarinventoryApplication.java
+F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\config\DatabaseSeeder.java
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\config\SecurityConfig.java
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\controller\AuthController.java
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\controller\VehicleController.java
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\dto\LoginRequest.java
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\dto\LoginResponse.java
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\dto\RegisterRequest.java
+F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\dto\UserProfileResponse.java
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\dto\VehicleRequest.java
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\dto\VehicleResponse.java
 F:\Incubytes\carinventory\carinventory_backend\src\main\java\com\incubytes\carinventory\entity\Role.java

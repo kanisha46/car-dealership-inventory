@@ -46,6 +46,12 @@ public class VehicleController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<VehicleResponse> getVehicleById(@PathVariable Long id) {
+        Vehicle vehicle = service.getVehicleById(id);
+        return ResponseEntity.ok(VehicleMapper.toResponse(vehicle));
+    }
+
     /**
      * Unified search & filter endpoint.
      * All params are optional and can be combined freely:

@@ -6,25 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="df35182e-4a4f-4312-aadf-a967b6514a0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/controller/VehicleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/controller/VehicleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/repository/VehicleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/repository/VehicleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/service/VehicleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/service/VehicleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/src/test/java/com/incubytes/carinventory/controller/VehicleControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/src/test/java/com/incubytes/carinventory/controller/VehicleControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/controller/VehicleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/controller/VehicleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/repository/VehicleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/repository/VehicleRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/service/VehicleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/classes/com/incubytes/carinventory/service/VehicleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/testCompile/testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/maven-status/maven-compiler-plugin/testCompile/testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/TEST-com.incubytes.carinventory.CarinventoryApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/TEST-com.incubytes.carinventory.CarinventoryApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/TEST-com.incubytes.carinventory.controller.AuthControllerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/TEST-com.incubytes.carinventory.controller.AuthControllerTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/TEST-com.incubytes.carinventory.controller.VehicleControllerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/TEST-com.incubytes.carinventory.controller.VehicleControllerTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/TEST-com.incubytes.carinventory.service.AuthServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/TEST-com.incubytes.carinventory.service.AuthServiceTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/com.incubytes.carinventory.CarinventoryApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/com.incubytes.carinventory.CarinventoryApplicationTests.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/com.incubytes.carinventory.controller.AuthControllerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/com.incubytes.carinventory.controller.AuthControllerTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/com.incubytes.carinventory.controller.VehicleControllerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/com.incubytes.carinventory.controller.VehicleControllerTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/com.incubytes.carinventory.service.AuthServiceTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/surefire-reports/com.incubytes.carinventory.service.AuthServiceTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carinventory_backend/target/test-classes/com/incubytes/carinventory/controller/VehicleControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/target/test-classes/com/incubytes/carinventory/controller/VehicleControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/carinventory_backend/src/main/java/com/incubytes/carinventory/service/AuthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +57,19 @@
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="carinventory" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="carinventory" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

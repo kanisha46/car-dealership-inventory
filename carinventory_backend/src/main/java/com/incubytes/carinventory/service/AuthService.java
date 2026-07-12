@@ -2,6 +2,7 @@ package com.incubytes.carinventory.service;
 
 import com.incubytes.carinventory.dto.LoginResponse;
 import com.incubytes.carinventory.dto.RegisterRequest;
+import com.incubytes.carinventory.dto.UserProfileResponse;
 import com.incubytes.carinventory.entity.Role;
 import com.incubytes.carinventory.entity.User;
 import com.incubytes.carinventory.repository.UserRepository;
@@ -52,6 +53,17 @@ public class AuthService {
         return new LoginResponse(
                 "Login successful",
                 token
+        );
+    }
+
+    public UserProfileResponse getProfile(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return new UserProfileResponse(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getRole().name()
         );
     }
 }

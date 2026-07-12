@@ -24,6 +24,11 @@ public class VehicleService {
         return repository.findAll();
     }
 
+    public Vehicle getVehicleById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException("Vehicle not found"));
+    }
+
     public List<Vehicle> searchVehicles(String keyword) {
         return repository
                 .findByBrandContainingIgnoreCaseOrModelContainingIgnoreCaseOrCategoryContainingIgnoreCase(
