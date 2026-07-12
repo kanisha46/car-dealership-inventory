@@ -585,6 +585,93 @@ Every AI-generated suggestion was manually reviewed, modified where necessary, t
 Using AI significantly accelerated repetitive development tasks such as boilerplate generation, debugging, and documentation. It allowed greater focus on designing clean architecture, implementing business logic, improving user experience, and maintaining high code quality. All architectural decisions, business logic, testing, and final integration were completed and validated manually.
 
 ---
+# 🌍 Live Demo
+
+The application is deployed and accessible online.
+
+## Frontend (Vercel)
+
+https://car-dealership-inventory-omega.vercel.app
+
+## Backend (Render)
+
+https://car-dealership-inventory-wq1a.onrender.com
+
+---
+
+# 🚀 Deployment
+
+## Frontend Deployment
+
+**Platform:** Vercel
+
+Live Application:
+
+https://car-dealership-inventory-omega.vercel.app
+
+---
+
+## Backend Deployment
+
+**Platform:** Render
+
+Base API URL:
+
+https://car-dealership-inventory-wq1a.onrender.com
+
+---
+
+## Example API Endpoints
+
+### Get All Vehicles
+
+GET https://car-dealership-inventory-wq1a.onrender.com/api/vehicles
+
+### User Registration
+
+POST https://car-dealership-inventory-wq1a.onrender.com/api/auth/register
+
+### User Login
+
+POST https://car-dealership-inventory-wq1a.onrender.com/api/auth/login
+
+### Current User
+
+GET https://car-dealership-inventory-wq1a.onrender.com/api/auth/me
+
+---
+
+## Deployment Architecture
+
+```text
+                    ┌────────────────────┐
+                    │   React Frontend   │
+                    │      (Vercel)      │
+                    └─────────┬──────────┘
+                              │
+                    HTTPS REST API Calls
+                              │
+                              ▼
+                 ┌─────────────────────────┐
+                 │ Spring Boot Backend     │
+                 │        (Render)         │
+                 └─────────┬───────────────┘
+                           │
+                           ▼
+                    SQLite Database
+```
+
+---
+
+## Deployment Notes
+
+- Frontend hosted on **Vercel**
+- Backend hosted on **Render**
+- REST APIs secured using JWT Authentication
+- Passwords encrypted using BCrypt
+- Frontend communicates with backend using Axios
+- Responsive UI optimized for desktop and mobile devices
+
 
 # 🚀 Future Enhancements
 
