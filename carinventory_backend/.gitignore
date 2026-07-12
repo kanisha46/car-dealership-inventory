@@ -1,12 +1,65 @@
-# IntelliJ
+##############################
+# IntelliJ IDEA
+##############################
+
 .idea/
 *.iml
+out/
 
-# SQLite
+##############################
+# VS Code
+##############################
+
+.vscode/
+
+##############################
+# OS Files
+##############################
+
+.DS_Store
+Thumbs.db
+
+##############################
+# SQLite Database
+##############################
+
 *.db
+*.db-journal
+*.sqlite
+*.sqlite3
 
-# React
-carinventory_frontend/node_modules/
+##############################
+# Backend (Spring Boot)
+##############################
 
-# Spring Boot
 carinventory_backend/target/
+carinventory_backend/.mvn/wrapper/maven-wrapper.jar
+
+##############################
+# Frontend (React)
+##############################
+
+carinventory_frontend/node_modules/
+carinventory_frontend/dist/
+carinventory_frontend/.vite/
+
+##############################
+# Logs
+##############################
+
+*.log
+logs/
+
+##############################
+# Environment Files
+##############################
+
+.env
+.env.*
+
+##############################
+# Temporary Files
+##############################
+
+*.tmp
+*.swp
