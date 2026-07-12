@@ -38,9 +38,8 @@ describe('Dashboard Page', () => {
       </MemoryRouter>
     );
 
-    // Grid item skeletons
-    const skeletons = document.querySelectorAll('.skeleton');
-    expect(skeletons.length).toBeGreaterThan(0);
+    // Loading spinner text
+    expect(screen.getByText(/Loading vehicles.../i)).toBeInTheDocument();
   });
 
   it('renders stats and vehicles lists upon successful fetch', async () => {

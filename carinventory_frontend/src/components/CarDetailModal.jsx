@@ -133,9 +133,9 @@ export default function CarDetailModal({ vehicle, onClose, onPurchase }) {
             </div>
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontSize: '2.6rem', fontWeight: 900, color: '#c8602a', lineHeight: 1, letterSpacing: '-0.03em' }}>
-                ${vehicle.price?.toLocaleString('en-US', { minimumFractionDigits: 0 })}
+                ₹{vehicle.price?.toLocaleString('en-IN', { minimumFractionDigits: 0 })}
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#8c7e6e', marginTop: '0.2rem', fontWeight: 500 }}>Starting price (USD)</div>
+              <div style={{ fontSize: '0.75rem', color: '#8c7e6e', marginTop: '0.2rem', fontWeight: 500 }}>Starting price (INR)</div>
             </div>
           </div>
 

@@ -39,13 +39,13 @@ describe('VehicalCard Component', () => {
     expect(screen.getByText('Model Y')).toBeInTheDocument();
     expect(screen.getByText('SUV')).toBeInTheDocument();
     expect(screen.getByText('2023')).toBeInTheDocument();
-    expect(screen.getByText('$49,990.00')).toBeInTheDocument();
-    expect(screen.getByText('5 Available')).toBeInTheDocument();
+    expect(screen.getByText('₹49,990')).toBeInTheDocument();
+    expect(screen.getByText(/5 Available/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Purchase/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Purchase/i })).not.toBeDisabled();
   });
 
-  it('disables purchase button when quantity is 0', () => {
+  it('renders out of stock badge when quantity is 0', () => {
     useAuth.mockReturnValue({ isAdmin: false });
     const outOfStockVehicle = { ...mockVehicle, quantity: 0 };
 
@@ -61,18 +61,18 @@ describe('VehicalCard Component', () => {
     );
 
     expect(screen.getByText('Out of Stock')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Unavailable/i })).toBeDisabled();
+    expect(screen.getByRole('button', { name: /Purchase/i })).toBeInTheDocument();
   });
 
-  it('calls purchase handler on click', () => {
+  it('calls view detail handler on click', () => {
     useAuth.mockReturnValue({ isAdmin: false });
-    const mockOnPurchase = vi.fn();
+    const mockOnViewDetail = vi.fn();
 
     render(
       <MemoryRouter>
         <VehicalCard
           vehicle={mockVehicle}
-          onPurchase={mockOnPurchase}
+          onViewDetail={mockOnViewDetail}
           onDelete={vi.fn()}
           onRestock={vi.fn()}
         />
@@ -80,7 +80,7 @@ describe('VehicalCard Component', () => {
     );
 
     fireEvent.click(screen.getByRole('button', { name: /Purchase/i }));
-    expect(mockOnPurchase).toHaveBeenCalledWith(mockVehicle.id);
+    expect(mockOnViewDetail).toHaveBeenCalledWith(mockVehicle);
   });
 
   it('renders admin controls (edit, delete, restock) only for admin users', () => {

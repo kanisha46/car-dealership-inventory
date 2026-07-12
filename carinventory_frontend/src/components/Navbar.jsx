@@ -50,7 +50,7 @@ export default function Navbar() {
               onMouseEnter={e => e.target.style.color = '#c8602a'}
               onMouseLeave={e => e.target.style.color = '#5a4f42'}
             >
-              Showroom
+              Inventory
             </Link>
             {isAdmin && (
               <Link

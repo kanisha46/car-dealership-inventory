@@ -191,7 +191,7 @@ export default function EditVehicle() {
         onMouseLeave={e => e.currentTarget.style.color = '#8c7e6e'}
       >
         <ArrowLeft size={15} />
-        Back to Showroom
+        Back to Inventory
       </button>
 
       {/* Header */}
@@ -240,7 +240,7 @@ export default function EditVehicle() {
           </div>
 
           <div style={SECTION_STYLE}>
-            <Field label="Price (USD)" name="price" type="number" placeholder="e.g. 22000" required />
+            <Field label="Price (₹ INR)" name="price" type="number" placeholder="e.g. 1500000" required />
             <Field label="Quantity in Stock" name="quantity" type="number" placeholder="e.g. 10" required />
           </div>
         </div>

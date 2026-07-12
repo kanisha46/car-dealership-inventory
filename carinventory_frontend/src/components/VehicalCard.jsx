@@ -166,9 +166,9 @@ export default function VehicalCard({ vehicle, onPurchase, onDelete, onRestock, 
           display: 'flex', alignItems: 'baseline', gap: '0.4rem',
         }}>
           <span style={{ fontSize: '1.9rem', fontWeight: 900, color: '#c8602a', letterSpacing: '-0.03em', lineHeight: 1 }}>
-            ${vehicle.price?.toLocaleString('en-US', { minimumFractionDigits: 0 })}
+            ₹{vehicle.price?.toLocaleString('en-IN', { minimumFractionDigits: 0 })}
           </span>
-          <span style={{ fontSize: '0.75rem', color: '#8c7e6e', fontWeight: 500 }}>USD</span>
+          <span style={{ fontSize: '0.75rem', color: '#8c7e6e', fontWeight: 500 }}>INR</span>
         </div>
 
         {/* CTA Button */}

@@ -93,12 +93,12 @@ export default function VehicleForm({ initialData, onSubmit, submitLabel, loadin
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Price ($)</label>
+          <label className="block text-sm font-medium text-slate-300 mb-2">Price (₹ INR)</label>
           <input
             type="number"
             step="0.01"
             className="input-field"
-            placeholder="e.g. 79990.00"
+            placeholder="e.g. 1500000.00"
             {...register('price', {
               required: 'Price is required',
               valueAsNumber: true,

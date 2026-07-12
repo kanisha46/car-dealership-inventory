@@ -94,8 +94,8 @@ export default function SearchBar({ onSearch }) {
             {[
               { label: 'Model', placeholder: 'e.g. Camry', value: model, onChange: (v) => setModel(v), type: 'text' },
               { label: 'Year', placeholder: 'e.g. 2024', value: year, onChange: (v) => setYear(v), type: 'number' },
-              { label: 'Min Price ($)', placeholder: '0', value: minPrice, onChange: (v) => setMinPrice(v), type: 'number' },
-              { label: 'Max Price ($)', placeholder: 'Any', value: maxPrice, onChange: (v) => setMaxPrice(v), type: 'number' },
+              { label: 'Min Price (₹)', placeholder: '0', value: minPrice, onChange: (v) => setMinPrice(v), type: 'number' },
+              { label: 'Max Price (₹)', placeholder: 'Any', value: maxPrice, onChange: (v) => setMaxPrice(v), type: 'number' },
             ].map(({ label, placeholder, value, onChange, type }) => (
               <div key={label}>
                 <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, color: '#8c7e6e', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.4rem' }}>

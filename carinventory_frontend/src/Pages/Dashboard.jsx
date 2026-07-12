@@ -94,11 +94,57 @@ const BRAND_GRADIENT = {
   'Maserati':      'car-img-porsche',
 };
 
+// ─── Model-specific image map for unique pictures ──────────────────────────
+const MODEL_IMAGE_MAP = {
+  // Database seeded cars
+  'Toyota Fortuner':    'https://images.unsplash.com/photo-1707507914800-4b13a361ef2f?w=900&q=80',
+  'Toyota Camry':       'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=900&q=80',
+  'Honda City':         'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=900&q=80',
+  'Honda Civic':        'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=80',
+  'Hyundai Creta':      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=900&q=80',
+  'Hyundai Verna':      'https://images.unsplash.com/photo-1612825173281-9a193378527e?w=900&q=80',
+  'Mahindra Scorpio N': 'https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=900&q=80',
+  'Mahindra XUV700':    'https://images.unsplash.com/photo-1562601579-579bc14bcd66?w=900&q=80',
+  'Tata Nexon':         'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=900&q=80',
+  'Tata Harrier':       'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=900&q=80',
+  'Kia Seltos':         'https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?w=900&q=80',
+  'MG Hector':          'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=80',
+  'BMW 3 Series':       'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=80',
+  'BMW X5':             'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=900&q=80',
+  'Mercedes-Benz C-Class': 'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=900&q=80',
+  'Mercedes-Benz GLC':  'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=80',
+  'Audi A4':            'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=80',
+  'Audi Q7':            'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
+  'Tesla Model 3':      'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=900&q=80',
+  'Tesla Model Y':      'https://images.unsplash.com/photo-1619590059625-f96f7c77d49e?w=900&q=80',
+
+  // Static / Fallback cars
+  'Porsche 911 Carrera S': 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=900&q=80',
+  'BMW M4 Competition':    'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=900&q=80',
+  'Mercedes-Benz AMG GT 63 S': 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=80',
+  'Audi RS7 Sportback':    'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=80',
+  'Ferrari Roma Spider':   'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80',
+  'Lamborghini Urus S':    'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80',
+  'Tesla Model S Plaid':   'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=900&q=80',
+  'Range Rover Sport SVR': 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
+  'Rolls-Royce Ghost Black Badge': 'https://images.unsplash.com/photo-1566024349786-f5cbf63d6571?w=900&q=80',
+  'Toyota GR Supra A91':   'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=900&q=80',
+};
+
+// Helper to resolve unique car image dynamically
+const getCarImage = (vehicle) => {
+  if (vehicle.imageUrl && !vehicle.imageUrl.startsWith('/images/')) {
+    return vehicle.imageUrl;
+  }
+  const key = `${vehicle.brand} ${vehicle.model}`;
+  return MODEL_IMAGE_MAP[key] || CAR_IMAGE_MAP[vehicle.brand] || 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&q=80';
+};
+
 // ─── 10 Static Showcase Cars ───────────────────────────────────────────────
 const STATIC_CARS = [
   {
     id: 's1', brand: 'Porsche', model: '911 Carrera S', year: 2024,
-    price: 129900, quantity: 3, category: 'Sports',
+    price: 18000000, quantity: 3, category: 'Sports',
     engine: '3.0L Twin-Turbo Flat-6', horsepower: '443 HP', transmission: '8-Speed PDK',
     color: 'Carmine Red',
     description: 'The iconic 911 Carrera S delivers a visceral driving experience blended with everyday usability. Its rear-engine layout and precision tuning make it the benchmark of sports car excellence.',
@@ -107,7 +153,7 @@ const STATIC_CARS = [
   },
   {
     id: 's2', brand: 'BMW', model: 'M4 Competition', year: 2024,
-    price: 84900, quantity: 5, category: 'Sport Sedan',
+    price: 14500000, quantity: 5, category: 'Sport Sedan',
     engine: '3.0L TwinPower Turbo', horsepower: '503 HP', transmission: '8-Speed M Steptronic',
     color: 'Isle of Man Green',
     description: 'The BMW M4 Competition is an adrenaline-fueled machine that combines track-ready performance with daily comfort. Its aggressive styling and M-tuned chassis set it apart from the crowd.',
@@ -116,7 +162,7 @@ const STATIC_CARS = [
   },
   {
     id: 's3', brand: 'Mercedes-Benz', model: 'AMG GT 63 S', year: 2024,
-    price: 162000, quantity: 2, category: 'Grand Tourer',
+    price: 27000000, quantity: 2, category: 'Grand Tourer',
     engine: '4.0L V8 Biturbo', horsepower: '630 HP', transmission: '9-Speed MCT',
     color: 'Obsidian Black',
     description: 'A masterpiece of performance and luxury, the AMG GT 63 S merges a handcrafted 4.0L V8 engine with a refined four-door body, making it the ultimate four-seat sports car.',
@@ -125,7 +171,7 @@ const STATIC_CARS = [
   },
   {
     id: 's4', brand: 'Audi', model: 'RS7 Sportback', year: 2024,
-    price: 118500, quantity: 4, category: 'Performance',
+    price: 22000000, quantity: 4, category: 'Performance',
     engine: '4.0L TFSI V8', horsepower: '591 HP', transmission: '8-Speed Tiptronic',
     color: 'Nardo Gray',
     description: 'The RS7 Sportback is Audis most powerful and sophisticated fastback. With quattro AWD and a mild hybrid system, it achieves blistering performance without sacrificing fuel economy.',
@@ -134,7 +180,7 @@ const STATIC_CARS = [
   },
   {
     id: 's5', brand: 'Ferrari', model: 'Roma Spider', year: 2024,
-    price: 278000, quantity: 1, category: 'Supercar',
+    price: 37600000, quantity: 1, category: 'Supercar',
     engine: '3.9L Twin-Turbo V8', horsepower: '612 HP', transmission: '8-Speed DCT',
     color: 'Rosso Portofino',
     description: 'The Ferrari Roma Spider captures the spirit of la dolce vita in open-top form. Its elegant lines, sculpted body, and retractable hardtop make it the most beautiful Ferrari in recent memory.',
@@ -143,7 +189,7 @@ const STATIC_CARS = [
   },
   {
     id: 's6', brand: 'Lamborghini', model: 'Urus S', year: 2024,
-    price: 239000, quantity: 2, category: 'Super SUV',
+    price: 41800000, quantity: 2, category: 'Super SUV',
     engine: '4.0L Twin-Turbo V8', horsepower: '657 HP', transmission: '8-Speed Automatic',
     color: 'Giallo Auge',
     description: 'The Urus S redefines what an SUV can be. Combining Lamborghini DNA with genuine daily usability, it offers supercar performance in an elegant, versatile package for any terrain.',
@@ -152,7 +198,7 @@ const STATIC_CARS = [
   },
   {
     id: 's7', brand: 'Tesla', model: 'Model S Plaid', year: 2024,
-    price: 98990, quantity: 6, category: 'Electric',
+    price: 15000000, quantity: 6, category: 'Electric',
     engine: 'Tri-Motor Electric', horsepower: '1,020 HP', transmission: 'Single-Speed Direct',
     color: 'Midnight Silver',
     description: 'The Tesla Model S Plaid is the fastest production car ever built, with a 0-60 mph time under 2 seconds. A revolutionary tri-motor system delivers unmatched electric performance.',
@@ -161,7 +207,7 @@ const STATIC_CARS = [
   },
   {
     id: 's8', brand: 'Range Rover', model: 'Sport SVR', year: 2024,
-    price: 142000, quantity: 3, category: 'Luxury SUV',
+    price: 21000000, quantity: 3, category: 'Luxury SUV',
     engine: '5.0L Supercharged V8', horsepower: '575 HP', transmission: '8-Speed ZF',
     color: 'Santorini Black',
     description: 'The Range Rover Sport SVR combines world-class luxury with extreme off-road capability and performance. Its supercharged V8 delivers excitement in any environment.',
@@ -170,7 +216,7 @@ const STATIC_CARS = [
   },
   {
     id: 's9', brand: 'Rolls-Royce', model: 'Ghost Black Badge', year: 2024,
-    price: 395000, quantity: 1, category: 'Ultra Luxury',
+    price: 79000000, quantity: 1, category: 'Ultra Luxury',
     engine: '6.75L Twin-Turbo V12', horsepower: '592 HP', transmission: '8-Speed Auto',
     color: 'Black Diamond',
     description: 'The Ghost Black Badge is Rolls-Royces alter ego — a more assertive, performance-oriented Ghost for those who prefer to command attention silently. Absolute opulence meets dark mystique.',
@@ -179,7 +225,7 @@ const STATIC_CARS = [
   },
   {
     id: 's10', brand: 'Toyota', model: 'GR Supra A91', year: 2024,
-    price: 62400, quantity: 8, category: 'Sports',
+    price: 8500000, quantity: 8, category: 'Sports',
     engine: '3.0L Inline-6 Turbo', horsepower: '382 HP', transmission: '8-Speed Automatic',
     color: 'Nitro Yellow',
     description: 'The GR Supra A91 is a legendary nameplate reborn. Jointly developed with BMW, it brings Japanese passion for driving dynamics together with European engineering precision.',
@@ -191,7 +237,7 @@ const STATIC_CARS = [
 // Attach image URLs and gradient classes
 const ENRICHED_STATIC_CARS = STATIC_CARS.map(car => ({
   ...car,
-  imageUrl: CAR_IMAGE_MAP[car.brand] || 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&q=80',
+  imageUrl: getCarImage(car),
   gradientClass: BRAND_GRADIENT[car.brand] || 'car-img-porsche',
 }));
 
@@ -222,7 +268,7 @@ export default function Dashboard() {
       }
       const enriched = data.map((v) => ({
         ...v,
-        imageUrl: CAR_IMAGE_MAP[v.brand] || 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&q=80',
+        imageUrl: getCarImage(v),
         gradientClass: BRAND_GRADIENT[v.brand] || 'car-img-porsche',
       }));
       setVehicles(enriched);
@@ -258,7 +304,7 @@ export default function Dashboard() {
     setDialog({
       isOpen: true,
       title: 'Confirm Purchase',
-      message: `Complete your purchase of the ${vehicle.brand} ${vehicle.model} (${vehicle.year}) for $${vehicle.price?.toLocaleString()}? Our team will contact you within 24 hours to finalize delivery.`,
+      message: `Complete your purchase of the ${vehicle.brand} ${vehicle.model} (${vehicle.year}) for ₹${vehicle.price?.toLocaleString('en-IN')}? Our team will contact you within 24 hours to finalize delivery.`,
       confirmText: 'Yes, Purchase!',
       isDestructive: false,
       isProcessing: false,
@@ -350,7 +396,7 @@ export default function Dashboard() {
                 fontSize: '2.6rem', fontWeight: 800, color: '#1a1612', lineHeight: 1,
                 letterSpacing: '-0.02em',
               }}>
-                Showroom Fleet
+                AutoVault Inventory
               </h1>
               <p style={{ color: '#8c7e6e', fontSize: '0.92rem', marginTop: '0.2rem' }}>
                 {useStaticFallback
@@ -409,7 +455,7 @@ export default function Dashboard() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', marginBottom: '2.5rem' }}>
         {[
           { label: 'Total Units', value: loading ? '—' : totalVehiclesCount.toLocaleString(), color: '#c8602a', icon: <Car size={18} /> },
-          { label: 'Fleet Value', value: loading ? '—' : `$${totalValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, color: '#166534', icon: <TrendingUp size={18} /> },
+          { label: 'Fleet Value', value: loading ? '—' : `₹${totalValue.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`, color: '#166534', icon: <TrendingUp size={18} /> },
           { label: 'Categories', value: loading ? '—' : uniqueCategories, color: '#92400e', icon: <Layers size={18} /> },
         ].map(({ label, value, color, icon }, i) => (
           <div key={label} className={`stat-card fade-up-${i + 1}`}>
